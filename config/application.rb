@@ -14,6 +14,7 @@ module ChatbotGpt
     config.load_defaults 7.0
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
     config.active_job.queue_adapter = :sidekiq
+    config.assets.initialize_on_precompile = false
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
