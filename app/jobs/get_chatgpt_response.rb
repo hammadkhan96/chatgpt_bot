@@ -4,6 +4,8 @@ class GetChatgptResponse
   include Sidekiq::Worker
 
   def perform(chat_room_id)
+    puts "job#perform"
+
     @chat_room = ChatRoom.find(chat_room_id)
     call_openai(@chat_room)
   end
@@ -11,7 +13,10 @@ class GetChatgptResponse
   private
 
   def call_openai(chat_room)
+    puts "job#call_openai vefore"
+
     begin
+      puts "job#call_openai"
       @response = OpenAI::Client.new.chat(
         parameters: {
           model: 'gpt-3.5-turbo',
@@ -19,10 +24,13 @@ class GetChatgptResponse
           temperature: 0.1
         }
       )
+      puts "job#call_openai after response"
   
       Conversation.create!(chat_room_id: chat_room.id, role: 'assistant', message: @response.dig('choices', 0, 'message', 'content'))
   
     rescue StandardError => e
+      puts "job#call_openai error"
+
       puts "Error occurred: #{e.message}"
     end
   end

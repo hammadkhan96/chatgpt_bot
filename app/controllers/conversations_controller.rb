@@ -5,7 +5,11 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.create(conversation_params.merge(role: 'user', chat_room_id: params[:chat_room_id]))
+    puts "conversation#create"
     GetChatgptResponse.perform_async(@conversation.chat_room_id)
+    puts "conversation#create after job"
+
+
     respond_to(&:turbo_stream)
   end
 
