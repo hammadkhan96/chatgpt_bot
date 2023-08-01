@@ -19,6 +19,6 @@ class GetChatgptResponse
       }
     )
 
-    Conversation.create!( chat_room_id: chat_room.id ,role: 'assistant', message: @response.dig('choices', 0, 'message', 'content'))
+    Conversation.create!(chat_room_id: chat_room.id, role: 'assistant', message: @response.dig('choices', 0, 'message', 'content'))
   end
 end
