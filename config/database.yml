@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: chatbot_gpt_production
-  username: chatbot_gpt
-  password: <%= ENV["CHATBOT_GPT_DATABASE_PASSWORD"] %>
+  url: postgres://fuousklwdazhnn:8deaa612655f799e6f1b5b37586d52b6b6c98044cf62896d65fc43bcd5683f6c@ec2-3-92-151-217.compute-1.amazonaws.com:5432/d43usp6n0ikj60
+  
