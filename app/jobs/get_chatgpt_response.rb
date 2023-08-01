@@ -13,8 +13,6 @@ class GetChatgptResponse
   private
 
   def call_openai(chat_room)
-    puts "job#call_openai vefore"
-
     begin
       puts "job#call_openai"
       @response = OpenAI::Client.new.chat(
@@ -24,13 +22,10 @@ class GetChatgptResponse
           temperature: 0.1
         }
       )
-      puts "job#call_openai after response"
-  
+  binding.break
       Conversation.create!(chat_room_id: chat_room.id, role: 'assistant', message: @response.dig('choices', 0, 'message', 'content'))
   
     rescue StandardError => e
-      puts "job#call_openai error"
-
       puts "Error occurred: #{e.message}"
     end
   end

@@ -1,6 +1,3 @@
-<%= turbo_stream.append "#{dom_id(@conversation.chat_room)}_conversations" do %>
-  <%= render "conversation", conversation: @conversation, scroll_to: true %>
-<% end %>
 
 <%= turbo_stream.replace "#{dom_id(@conversation.chat_room)}_conversation_form" do %>
   <%= render "form", chat_room: @conversation.chat_room %>
