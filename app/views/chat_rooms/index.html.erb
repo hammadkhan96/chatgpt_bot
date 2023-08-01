@@ -1,0 +1,28 @@
+<% if user_signed_in? %>
+  <div class="flex">
+  <div class="flex flex-col h-screen bg-gray-200">
+    <div class="px-4 py-3 border-b border-gray-300">
+      <%= button_to 'New Chat Room', chat_rooms_path , :method => :post , class: 'px-2 py-1 bg-blue-500 text-white rounded' %>
+    </div>
+    <div class="flex-1 overflow-y-auto">
+      <% @chat_rooms.each do |chat_room| %>
+        <%= link_to chat_room.id, chat_room_path(chat_room), class: "block px-4 py-2 border-b border-gray-300 hover:bg-gray-100 hover:text-black #{chat_room.eql?(@chat_room) ? "bg-red-500 text-white hover:bg-red-100" : ""} ", data: { turbo_frame: "chat-room-show-frame", turbo_frame_target: "_self" } %>
+      <% end %>
+    </div>
+    <div class="px-4 py-3 border-t border-gray-300">
+    <%= link_to 'Sign out', destroy_user_session_path, class: 'px-2 py-1 bg-red-500 text-white rounded', data: { turbo_method: :delete } %>
+
+    </div>
+  </div>
+
+  <div class="flex-1 bg-white p-4 h-screen">
+    <turbo-frame id="chat-room-show-frame" src="" class="w-full h-full">
+      <%if @chat_room%>
+        <%= render partial: "chat_rooms/show", locals: { chat_room: @chat_room } %>
+      <%end%>
+    </turbo-frame>
+  </div>
+</div>
+<% else %>
+  <%= link_to 'Sign in', new_user_session_path %>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="mx-auto w-full h-full flex">
+      <div class="mx-auto max-w-lg px-6 ">
+        <ul role="list" class="overflow-y-auto max-h-[48vh] flex flex-col-reverse">
+          <%= turbo_stream_from "#{dom_id(chat_room)}_conversations" %>
+          <div id="<%= dom_id(chat_room) %>_conversations">
+            <%= render chat_room.conversations %>
+          </div>
+        </ul>
+        <%= render partial: "conversations/form", locals: { chat_room: chat_room } %>
+      </div>
+</div>
