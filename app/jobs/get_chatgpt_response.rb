@@ -18,6 +18,10 @@ class GetChatgptResponse
         temperature: 0.1
       }
     )
+puts "===================================================================="    
+puts @response
+puts @response.dig('choices', 0, 'message', 'content')
+puts "===================================================================="    
 
     Conversation.create!(chat_room_id: chat_room.id, role: 'assistant', message: @response.dig('choices', 0, 'message', 'content'))
   end
